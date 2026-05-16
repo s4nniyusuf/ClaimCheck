@@ -8,7 +8,9 @@ import spacy
 from groq import Groq
 from dotenv import load_dotenv
 
-from prompts.prompts import grammar_fix_prompt, seller_claim_extraction_prompt
+from prompts.grammar_fix_prompt import grammar_fix_prompt
+from prompts.extract_sellers_claim_prompt import extract_seller_claims_prompt
+from prompts.review_analysis_prompt import review_analysis_prompt
 
 
 nlp = spacy.load("en_core_web_sm")
@@ -79,7 +81,7 @@ def extract_sellers_claim_from_description(description: str):
         messages=[
             {
                 "role": "user",
-                "content": seller_claim_extraction_prompt.format(description=description),
+                "content": extract_seller_claims_prompt.format(description=description),
             }
         ],
         model="llama-3.3-70b-versatile",
@@ -91,7 +93,7 @@ def extract_sellers_claim_from_description(description: str):
     print(f"Error extracting claims {e}")
 
 
-def extract_claims(description):
+def extract_seller_claims(description):
    preprocessed_description = preprocess_description(text=description)
    cleaned_description = fix_description_grammar(description=preprocessed_description)
    seller_claims = extract_sellers_claim_from_description(description=cleaned_description)
@@ -99,5 +101,30 @@ def extract_claims(description):
    print(seller_claims)
    return seller_claims
 
+
+def extract_aspect_and_sentiment_from_review(review_text):
+    api_key = load_api_key()
+    client = Groq(api_key=api_key)
+
+    try:
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {"role": "user", "content": review_analysis_prompt.format(review_text=review_text)}
+            ]
+        )
+
+        aspect_and_sentiment = response.choices[0].message.content
+        return aspect_and_sentiment
+
+    except Exception as e:
+        print("Error:", e)
+        return None
+    
+    
+def analyze_reviews(reviews: list):
+   for review in reviews:
+      aspect_and_sentiment = extract_aspect_and_sentiment_from_review(review_text=review)
+      print(aspect_and_sentiment)
    
    
