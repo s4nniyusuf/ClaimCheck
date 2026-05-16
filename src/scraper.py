@@ -27,11 +27,13 @@ def safe_get(parent, tag, class_name):
 
 
 def structure_data(product_data: tuple):
+    """ Structures the scraped data into a dictionary"""
     return {
         "product_name": product_data[0],
         "description": product_data[1],
         "rating": product_data[2],
         "reviews": product_data[3],
+        "no_of_reviews": len(product_data[3])
     }
 
 
