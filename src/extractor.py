@@ -1,6 +1,7 @@
 import re
 import os
 import sys
+import json
 # Add the parent directory to sys.path to allow imports from the prompts package
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
@@ -58,12 +59,14 @@ def fix_description_grammar(description: str) -> str:
         api_key = load_api_key()
         client = Groq(api_key=api_key)
 
+        content = grammar_fix_prompt.replace("{description}", description)
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",  # or your preferred model
-            messages=[{"role": "user", "content": grammar_fix_prompt.format(description=description)}]
+            messages=[{"role": "user", "content": content}]
         )
 
         fixed_text = response.choices[0].message.content
+        print(fixed_text)
         return fixed_text
 
     except Exception as e:
@@ -71,26 +74,30 @@ def fix_description_grammar(description: str) -> str:
         return None
 
 
-def extract_sellers_claim_from_description(description: str):
-  """ Extracts sellers claims from the cleaned description and returns them in json format """
-  try:
-    api_key = load_api_key()
-    client2 = Groq(api_key=api_key)
+def extract_sellers_claim_from_description(description: str) -> list[dict]:
+    """Extracts seller claims from the cleaned description and returns them as a list of dicts."""
+    try:
+        api_key = load_api_key()
+        client2 = Groq(api_key=api_key)
 
-    chat_completion = client2.chat.completions.create(
-        messages=[
-            {
-                "role": "user",
-                "content": extract_seller_claims_prompt.format(description=description),
-            }
-        ],
-        model="llama-3.3-70b-versatile",
-    )
-    claims_jsons = chat_completion.choices[0].message.content
-    return claims_jsons
+        content = extract_seller_claims_prompt.replace("{description}", description)
 
-  except Exception as e:
-    print(f"Error extracting claims {e}")
+        chat_completion = client2.chat.completions.create(
+            messages=[{"role": "user", "content": content}],
+            model="llama-3.3-70b-versatile",
+        )
+
+        raw = chat_completion.choices[0].message.content.strip()
+        raw = re.sub(r"^```(?:json)?\s*|\s*```$", "", raw, flags=re.DOTALL).strip()
+
+        return json.loads(raw)
+
+    except json.JSONDecodeError as e:
+        print(f"Failed to parse model response as JSON: {e}")
+        return []
+    except Exception as e:
+        print(f"Error extracting claims: {e}")
+        return []
 
 
 def extract_seller_claims(description):
@@ -102,29 +109,40 @@ def extract_seller_claims(description):
    return seller_claims
 
 
-def extract_aspect_and_sentiment_from_review(review_text):
-    api_key = load_api_key()
-    client = Groq(api_key=api_key)
-
+def extract_aspect_and_sentiment_from_review(review_text: str) -> dict:
+    """Extracts aspects and their sentiment from a review and returns them as a dict."""
     try:
+        api_key = load_api_key()
+        client = Groq(api_key=api_key)
+
+        content = review_analysis_prompt.replace("{review_text}", review_text)
+
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
-            messages=[
-                {"role": "user", "content": review_analysis_prompt.format(review_text=review_text)}
-            ]
+            messages=[{"role": "user", "content": content}]
         )
 
-        aspect_and_sentiment = response.choices[0].message.content
-        return aspect_and_sentiment
+        raw = response.choices[0].message.content.strip()
+        raw = re.sub(r"^```(?:json)?\s*|\s*```$", "", raw, flags=re.DOTALL).strip()
 
+        return json.loads(raw)
+
+    except json.JSONDecodeError as e:
+        print(f"Failed to parse model response as JSON: {e}")
+        return {}
     except Exception as e:
-        print("Error:", e)
-        return None
+        print(f"Error extracting aspect and sentiment: {e}")
+        return {}
     
     
 def analyze_reviews(reviews: list):
-   for review in reviews:
+    results = []
+    for review in reviews:
       aspect_and_sentiment = extract_aspect_and_sentiment_from_review(review_text=review)
-      print(aspect_and_sentiment)
-   
+      results.append(
+         {"review": review, 
+          "aspect_and_sentiment": aspect_and_sentiment}
+      )
+    print(results)
+    return results
    
