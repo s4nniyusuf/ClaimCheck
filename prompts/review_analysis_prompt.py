@@ -1,43 +1,35 @@
 review_analysis_prompt = """
-You are an expert at analyzing product reviews for fashion items (shoes, boxers, clothes, wristbands, etc.).
+You are an expert at analyzing product reviews for any e-commerce category
+(electronics, appliances, food, tools, furniture, health, fashion, software, etc.).
 
-Your task is to extract **aspects** and their **sentiment** from a given review.
+Your task is to extract aspects and their sentiment from a given review.
 
-Use the following **aspect categories only**:
-- sizing
-- quality
-- design
-- item_accuracy
-- delivery
-- color_options
-- comfort
+Use the following aspect categories only:
+- physical_attributes  → size, weight, dimensions, fit, capacity, count
+- build_quality        → materials, durability, construction, finish grade
+- aesthetics           → visual design, color options, style, appearance, finish
+- performance         → speed, power, accuracy, output, effectiveness, range
+- usability            → ease of use, ergonomics, comfort, accessibility, controls
+- compatibility        → supported devices, OS, standards, integrations, voltages
+- contents             → what's included, bundled accessories, package variants
+- safety_compliance   → certifications, safety ratings, regulatory standards, warnings
+- sustainability       → eco-friendly materials, recyclability, ethical sourcing
+- logistics            → shipping speed, delivery options, packaging, return policy
 
 For each review:
 - Identify which aspects are mentioned.
 - For each aspect mentioned, classify the sentiment as: "positive", "negative", or "neutral".
 - If an aspect is not mentioned, do not include it.
-- Return the result strictly as **JSON**, in the following format:
-
-{{
-  "sizing": "positive/negative/neutral",
-  "quality": "positive/negative/neutral",
-  "design": "positive/negative/neutral",
-  "item_accuracy": "positive/negative/neutral",
-  "delivery": "positive/negative/neutral",
-  "color_options": "positive/negative/neutral",
-  "comfort": "positive/negative/neutral"
-}}
 
 Example:
 
-Review: "The shoes fit perfectly, the color was exactly as advertised, but the material feels cheap."
+Review: "Fits perfectly, color was exactly as shown, but the material feels cheap and it arrived late."
 
 Output:
-{{"sizing": "positive", "quality": "negative", "item_accuracy": "positive"}}
+{{"physical_attributes": "positive", "build_quality": "negative", "aesthetics": "positive", "logistics": "negative"}}
 
 Now analyze the following review and return only the JSON:
 "{review_text}"
 
-Return ONLY the raw JSON object. Do not wrap it in markdown code fences or backticks. Do not add any newlines before or after the JSON.
-
+Return ONLY the raw JSON object. No markdown fences, no backticks, no extra text.
 """
