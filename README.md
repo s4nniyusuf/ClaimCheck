@@ -23,9 +23,9 @@ claim_check/
 │      └── scraper.py                       # Jumia Scraping Module
 │
 ├── .gitignore                              # Ignore unnecessary files
-├── .python-version                         # python version
+├── .python-version                         # Pinned Python version (managed by uv)
 ├── LICENSE                                 # MIT License
-├── .pyproject.toml                         # Project metadata and dependencies
+├── pyproject.toml                          # Project metadata and dependencies
 ├── README.md                               # This file
 └── uv.lock                                 # Lockfile
 
@@ -40,7 +40,26 @@ claim_check/
 ![Groq](https://img.shields.io/badge/Groq-F55036?style=for-the-badge&logo=groq&logoColor=white)
 
 
-### How to run locally
+### How to Run Locally
+
+1. **Clone the repo**
+```bash
+   git clone https://github.com/your-username/claim_check.git
+   cd claim_check
+```
+
+2. **Install dependencies**
+```bash
+   uv sync
+```
+
+3. **Set up environment variables**
+   Create a `.env` file in the root directory:
+
+4. Run the app
+```bash
+   streamlit run src/app.py
+```
 
 
 ### Futher Improvement
