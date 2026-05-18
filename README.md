@@ -47,11 +47,6 @@ claim_check/
 ---
 
 ## How to Run Locally
-### Prerequisites
-- uv
-- Python 3.12+
-- Git
-
 ### 1. Clone the repo
 ```bash
 https://github.com/s4nniyusuf/claim_check.git    
