@@ -2,11 +2,11 @@
 
 ---
 
-### Project Description
+## Project Description
 
 ---
 
-### Project Structure
+## Project Structure
 
 ```
 claim_check/
@@ -35,18 +35,18 @@ claim_check/
 ```
 ---
 
-### How it works 
+## How it works 
 
 ---
 
-### Technical Stack 
+## Technical Stack 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
 ![Groq](https://img.shields.io/badge/Groq-F55036?style=for-the-badge&logo=groq&logoColor=white)
 
 ---
 
-### How to Run Locally
+## How to Run Locally
 
 1. **Clone the repo**
 ```bash
@@ -70,4 +70,4 @@ claim_check/
 
 ---
 
-### Futher Improvement
+## Futher Improvement
