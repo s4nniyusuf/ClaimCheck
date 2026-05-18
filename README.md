@@ -1,7 +1,10 @@
 ## [claim_check]()
 
+---
+
 ### Project Description
 
+---
 
 ### Project Structure
 
@@ -30,15 +33,18 @@ claim_check/
 └── uv.lock                                 # Lockfile
 
 ```
+---
 
 ### How it works 
 
+---
 
 ### Technical Stack 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
 ![Groq](https://img.shields.io/badge/Groq-F55036?style=for-the-badge&logo=groq&logoColor=white)
 
+---
 
 ### How to Run Locally
 
@@ -60,6 +66,6 @@ claim_check/
 ```bash
    streamlit run src/app.py
 ```
-
+---
 
 ### Futher Improvement
