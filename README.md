@@ -47,8 +47,12 @@ claim_check/
 ---
 
 ## How to Run Locally
+### Prerequisites
+- uv
+- Python 3.12+
+- Git
 
-1. ### Clone the repo
+### 1. Clone the repo
 ```bash
     https://github.com/s4nniyusuf/claim_check.git    
 ```
@@ -56,15 +60,15 @@ claim_check/
     cd claim_check
 ```
 
-2. ### Install dependencies
+### 2. Install dependencies
 ```bash
     uv sync
 ```
 
-3. ### Set up environment variables**. 
-    Create a `.env` file in the root directory:
+### 3. Set up environment variables**. 
+    Create a `.env` file in the root directory
 
-4. ### Run the app
+### 4. Run the app
 ```bash
     streamlit run src/app.py
 ```
