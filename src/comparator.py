@@ -1,12 +1,11 @@
 from collections import defaultdict
 
-# Assigned numerical weight to verdict scores. Used later to compute trust score
+
 VERDICT_CONFIRMED    = "CONFIRMED"
 VERDICT_CONTRADICTED = "CONTRADICTED"
 VERDICT_MIXED        = "MIXED"
 VERDICT_UNVERIFIED   = "UNVERIFIED"
 
-# For rearranging the report display
 VERDICT_SCORES = {
     VERDICT_CONFIRMED:    1.0,
     VERDICT_MIXED:        0.5,
@@ -37,7 +36,7 @@ def _aggregate_sentiments(analyzed_reviews: list[dict]) -> dict[str, dict]:
             },
             ...
         }
-
+    
     The problem is that's organized by review. You need it organized by aspect, so you can answer "across all reviews,for example how did customers feel about build_quality?" That's what this function does.
 
     It loops through every review, validates the input, then for each aspect it increments the sentiment count and collects up to 3 example reviews — all grouped by aspect rather than by review.
@@ -57,21 +56,32 @@ def _aggregate_sentiments(analyzed_reviews: list[dict]) -> dict[str, dict]:
         for aspect, sentiment in aspect_and_sentiment.items():
             if sentiment in ("positive", "negative", "neutral"):
                 counts[aspect][sentiment] += 1
-                if len(counts[aspect]["reviews"]) < 3:
+                # only store if under the cap AND this exact text isn't already stored
+                if len(counts[aspect]["reviews"]) < 3 and review_text not in counts[aspect]["reviews"]:
                     counts[aspect]["reviews"].append(review_text)
 
     return dict(counts)
 
 
-def _derive_verdict(sentiment_counts: dict) -> str:
-    pos = sentiment_counts.get("positive", 0)
-    neg = sentiment_counts.get("negative", 0)
+def _derive_verdict(sentiment_counts: dict, min_reviews: int = 2) -> str:
+    pos   = sentiment_counts.get("positive", 0)
+    neg   = sentiment_counts.get("negative", 0)
+    total = pos + neg
 
-    if pos == 0 and neg == 0:
+    # not enough signal to make a confident call
+    if total == 0:
         return VERDICT_UNVERIFIED
+    if total < min_reviews:
+        return VERDICT_UNVERIFIED
+
+    # one side dominates (75%+) -> treat as confirmed or contradicted even if mixed
     if pos > 0 and neg == 0:
         return VERDICT_CONFIRMED
     if neg > 0 and pos == 0:
+        return VERDICT_CONTRADICTED
+    if pos / total >= 0.75:
+        return VERDICT_CONFIRMED
+    if neg / total >= 0.75:
         return VERDICT_CONTRADICTED
     return VERDICT_MIXED
 
@@ -142,7 +152,8 @@ def compare(claims: list[dict], analyzed_reviews: list[dict]) -> dict:
 
     results.sort(key=lambda r: list(VERDICT_SCORES.keys()).index(r["verdict"]))
 
-    # --- unclaimed aspects: customers mentioned but seller never addressed NB: Unclaimed aspect with no sentiments are not displayed ---
+    # --- unclaimed aspects: customers mentioned but seller never addressed 
+    # NB: Unclaimed aspect with no sentiments are not displayed ---
     claimed_aspects   = set(aspect_claims.keys())
     unclaimed_aspects = []
 
