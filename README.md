@@ -48,24 +48,25 @@ claim_check/
 
 ### How to Run Locally
 
-1. **Clone the repo**
-```bash
-   git clone https://github.com/your-username/claim_check.git
-   cd claim_check
-```
+- **Clone the repo**
+    ```bash
+    git clone https://github.com/your-username/claim_check.git
+    ```
+    ```bash
+    cd claim_check
+    ```
 
-2. **Install dependencies**
-```bash
-   uv sync
-```
+- **Install dependencies**
+    ```bash
+    uv sync
+    ```
 
-3. **Set up environment variables**
-   Create a `.env` file in the root directory:
+3. **Set up environment variables**. Create a `.env` file in the root directory:
 
 4. Run the app
-```bash
-   streamlit run src/app.py
-```
+    ```bash
+    streamlit run src/app.py
+    ```
 ---
 
 ### Futher Improvement
