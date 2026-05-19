@@ -19,7 +19,15 @@ Built for the Nigerian e-commerce market where "what I ordered vs what I got" is
 
 ## The Problem
 
-Nigeria's e-commerce market is projected to reach $18B by 2030. But behind that growth, millions of buyers still receive products that don't match their expectations. Sellers write descriptions that sound great, but reviews tell a different story.
+Nigeria's e-commerce market is projected to reach $22.9B by 2030. But behind that growth, the most common and persistent challenge remains:
+
+**"What I ordered vs what I got"**
+
+Customers receive products that don't match their expectations. Over time this affects something deeper than just a bad purchase —
+
+**trust.**
+
+And once trust drops, so does purchase intention.
 
 ClaimCheck bridges that gap.
 
@@ -158,7 +166,7 @@ uv run streamlit run src/app.py
 
 ## Feedback
 
-Especially welcome from anyone who's been humbled by a bad Jumia order.
+Especially from anyone who's been humbled by a bad Jumia order.
 
 Open an issue, submit a PR, or reach out on X [@s4nni_yusuf](https://x.com/s4nni_yusuf).
 
