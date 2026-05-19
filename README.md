@@ -63,13 +63,13 @@ Every product aspect the seller describes gets its own card showing their exact 
 - `✕` `CONTRADICTED` — customers say otherwise
 
 **Trust Score**
-A 0–100 score computed from all verified aspect verdicts — weighted by how strongly each verdict is supported.
+A 0–100 score computed from all verified aspect verdicts, weighted by how strongly each verdict is supported.
 
 **Unclaimed Aspects**
 The most unique feature. ClaimCheck surfaces aspects sellers never mention in their descriptions but customers repeatedly bring up in reviews, whether it's a flaw they're hiding or a strength they forgot to mention.
 
 **Confidence-weighted verdicts**
-A single negative review can't contradict a seller claim. ClaimCheck requires a minimum of 2 reviews per aspect and a 75% sentiment majority before committing to a verdict — making the output trustworthy rather than reactive.
+A single negative review can't contradict a seller claim. ClaimCheck requires a minimum of 2 reviews per aspect and a 75% sentiment majority before committing to a verdict, making the output trustworthy rather than reactive.
 
 ---
 
