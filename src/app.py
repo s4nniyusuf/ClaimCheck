@@ -51,7 +51,7 @@ def sentiment_bar(pos: int, neg: int, neu: int) -> str:
 def sample_reviews_html(reviews: list[str]) -> str:
     """Renders sample review quotes."""
     if not reviews:
-        return '<p style="font-size:12px; color:#bbb; margin:6px 0 0;">No review samples available.</p>'
+        return '<p style="font-size:12px; color:#bbb; margin:6px 0 0;">No review samples available. Customers who have bought this product have not yet posted comments</p>'
     items = "".join(
         f'<li style="font-size:13px; color:#666; margin-bottom:6px; '
         f'border-left:2px solid #e0e0e0; padding-left:10px;">'
@@ -159,9 +159,9 @@ def render_unclaimed_aspect_card(unclaimed: dict):
 if not st.session_state.show_report:
     st.html("""
     <div style="margin-bottom:32px;">
-        <span style="font-size:11px; letter-spacing:.15em;
+        <span style="font-size:12px; letter-spacing:.15em;
                padding:4px 10px; border:1px solid #70d6f5;
-               border-radius:4px; background:#ffff; color:#05c8eb;">CLAIM CHECK</span>
+               border-radius:4px; background:#ffff; color:#05c8eb;">ClaimCheck</span>
         <h1 style="font-weight:700; font-size:30px; color:#444;
                    line-height:1.2; margin-top:10px;">
             Does this seller deliver what they promise?
