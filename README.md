@@ -106,6 +106,7 @@ claim_check/
 │
 ├── .gitignore                              # Files and folders excluded from version control
 ├── .python-version                         # Pinned Python version managed by uv
+├── Dockerfile                              # Container configuration for production deployment
 ├── LICENSE                                 # MIT License
 ├── pyproject.toml                          # Project metadata and dependencies
 ├── README.md                               # Project documentation
