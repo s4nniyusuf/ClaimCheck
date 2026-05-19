@@ -4,13 +4,14 @@ from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 
-HEADLESS = False
+HEADLESS = True
 
 def set_up_browser(playwright):
     """Launch Chromium and return (browser, context, page)."""
     browser = playwright.chromium.launch(
         headless=HEADLESS,
-        executable_path="/usr/bin/chromium"
+        # Removed executable_path. Playwright finds chromium automatically
+        # executable_path="/usr/bin/chromium"
         )
     context = browser.new_context(
         user_agent=(
@@ -82,7 +83,7 @@ def scrape_data(page, soup):
     if rating_el:
         rating = rating_el.text.strip() 
     else:
-        print("Could not extract description. The page structure may have changed")
+        print("Could not extract rating. The page structure may have changed")
         rating = "N/A"
 
     # see all link to all reviews
