@@ -8,7 +8,10 @@ HEADLESS = False
 
 def set_up_browser(playwright):
     """Launch Chromium and return (browser, context, page)."""
-    browser = playwright.chromium.launch(headless=HEADLESS)
+    browser = playwright.chromium.launch(
+        headless=HEADLESS,
+        executable_path="/usr/bin/chromium"
+        )
     context = browser.new_context(
         user_agent=(
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
