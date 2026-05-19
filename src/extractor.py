@@ -15,8 +15,15 @@ from prompts.review_analysis_prompt import review_analysis_prompt
 
 nlp = spacy.load("en_core_web_sm")
 
-load_dotenv()
-client = Groq(api_key=os.getenv("GROQ_API_KEY_1"))
+load_dotenv(override=False)
+
+def _get_key(name: str) -> str:
+    key = os.getenv(name)
+    if not key:
+        raise ValueError(f"{name} is not set. Provide it as an environment variable.")
+    return key
+
+client = Groq(api_key=_get_key("GROQ_API_KEY"))
 
 
 def preprocess_description(text: str) -> str:
