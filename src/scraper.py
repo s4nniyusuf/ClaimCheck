@@ -93,7 +93,7 @@ def scrape_data(page, soup):
         print(f"Navigating to all reviews: {reviews_url}")
 
         page.goto(reviews_url, wait_until="domcontentloaded", timeout=15000)
-        page.wait_for_selector("div.cola", timeout=10000)
+        page.wait_for_selector("div.cola", timeout=15000)
         reviews_soup = BeautifulSoup(page.content(), "lxml")
         reviews = parse_reviews(soup=reviews_soup)
         
