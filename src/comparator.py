@@ -6,6 +6,7 @@ VERDICT_CONTRADICTED = "CONTRADICTED"
 VERDICT_MIXED        = "MIXED"
 VERDICT_UNVERIFIED   = "UNVERIFIED"
 
+# 
 VERDICT_SCORES = {
     VERDICT_CONFIRMED:    1.0,
     VERDICT_MIXED:        0.5,
@@ -64,6 +65,10 @@ def _aggregate_sentiments(analyzed_reviews: list[dict]) -> dict[str, dict]:
 
 
 def _derive_verdict(sentiment_counts: dict, min_reviews: int = 2) -> str:
+    """ 
+    min_reviews = 2 is the minimum threshold. If fewer than 2 reviews mentioned an aspect, it returns UNVERIFIED regardless of sentiment. The 0.75 ratio is the majority threshold — one side needs 75% of the total positive + negative mentions to commit to a strong verdict.
+    """
+
     pos   = sentiment_counts.get("positive", 0)
     neg   = sentiment_counts.get("negative", 0)
     total = pos + neg
