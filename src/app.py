@@ -192,12 +192,8 @@ if not st.session_state.show_report:
         if not product_url or not product_url.startswith("https://www.jumia.com.ng/"):
             st.error("Please enter a valid Jumia product URL.")
         else:
-            try:
-                with st.spinner("Scraping product data..."):
-                    product = scrape_jumia_product(product_url=product_url)
-            except Exception as e:
-                st.error("Something went wrong. Try again")
-                st.stop()
+            with st.spinner("Scraping product data..."):
+                product = scrape_jumia_product(product_url=product_url)
 
             if not product:
                 st.error("Scraping failed. Check the URL and try again.")
