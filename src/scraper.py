@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 
-HEADLESS = False
+HEADLESS = True
 
 def set_up_browser(playwright):
     """Launch Chromium and return (browser, context, page)."""
