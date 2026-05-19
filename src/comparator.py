@@ -158,7 +158,7 @@ def compare(claims: list[dict], analyzed_reviews: list[dict]) -> dict:
     results.sort(key=lambda r: list(VERDICT_SCORES.keys()).index(r["verdict"]))
 
     # --- unclaimed aspects: customers mentioned but seller never addressed 
-    # NB: Unclaimed aspect with no sentiments are not displayed ---
+    # NB: Unclaimed aspect with no review/sentiments are not displayed ---
     claimed_aspects   = set(aspect_claims.keys())
     unclaimed_aspects = []
 
