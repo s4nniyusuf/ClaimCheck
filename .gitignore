@@ -13,3 +13,5 @@ wheels/
 .env
 
 .devcontainer/
+
+new_extractor.py
