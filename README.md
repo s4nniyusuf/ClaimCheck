@@ -119,8 +119,6 @@ claim_check/
 **1. Clone the repo**
 ```bash
 git clone https://github.com/s4nni_yusuf/claimcheck.git
-```
-```bash
 cd claimcheck
 ```
 
@@ -139,11 +137,7 @@ uv run playwright install chromium
 uv run python -m spacy download en_core_web_sm
 ```
 
-**5. Set up your environment variables**
-```bash
-touch .env
-```
-Add this inside:
+**5. Create a `.env` file in the root directory and add:**
 ```
 GROQ_API_KEY_1=your_groq_api_key_here
 ```
@@ -158,9 +152,11 @@ uv run streamlit run src/app.py
 ---
 
 
-## Live Demo
+## Demo
 
-[claimcheck.streamlit.app](https://claimcheck.streamlit.app)
+![ClaimCheck Report](assets/report.png)
+
+[Try it live → claimcheck.streamlit.app](https://claimcheck.streamlit.app)
 
 ---
 
@@ -170,7 +166,7 @@ Especially from anyone who's been humbled by a bad Jumia order.
 
 Open an issue, submit a PR, or reach out on X [@s4nni_yusuf](https://x.com/s4nni_yusuf).
 
-If you find ClaimCheck useful, consider giving it a star ⭐. it helps more people find the project.
+If you find ClaimCheck useful, consider giving it a star ⭐. It helps more people find the project.
 
 ---
 
