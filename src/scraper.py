@@ -92,8 +92,8 @@ def scrape_data(page, soup):
         reviews_url = f"https://www.jumia.com.ng{see_all['href']}"
         print(f"Navigating to all reviews: {reviews_url}")
 
-        page.goto(reviews_url, wait_until="domcontentloaded", timeout=15000)
-        page.wait_for_selector("div.cola", timeout=15000)
+        page.goto(reviews_url, wait_until="domcontentloaded", timeout=30000)
+        page.wait_for_selector("div.cola", timeout=30000)
         reviews_soup = BeautifulSoup(page.content(), "lxml")
         reviews = parse_reviews(soup=reviews_soup)
         
@@ -108,13 +108,13 @@ def scrape_data(page, soup):
 def go_to_product_page(page, product_url: str):
     """ Access the product page and returns page soup object """
     try:
-        page.goto(product_url, timeout=15000, wait_until="domcontentloaded")
+        page.goto(product_url, timeout=30000, wait_until="domcontentloaded")
         time.sleep(2)  # Wait to simulate human behaviour
         print("Page loaded successfully. ")
         # page.get_by_role("button", name="Accept All Cookies").click()
         # print("Cookies accepted")
         time.sleep(2)
-        page.wait_for_selector("div.row ", timeout=15000)
+        page.wait_for_selector("div.row ", timeout=30000)
         print("Page loaded successfully. Starting scrape")
 
         html = page.content()
