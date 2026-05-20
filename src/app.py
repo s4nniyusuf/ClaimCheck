@@ -4,7 +4,7 @@ from scraper import scrape_jumia_product
 from extractor import extract_seller_claims, analyze_reviews
 from comparator import compare
 
-st.set_page_config("ClaimCheck")
+st.set_page_config(page_title="ClaimCheck", page_icon=" ")
 
 if "show_report" not in st.session_state:
     st.session_state.show_report = False
