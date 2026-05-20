@@ -104,12 +104,13 @@ claim_check/
 │      ├── extractor.py                     # Extracts seller claims and runs sentiment analysis on reviews
 │      └── scraper.py                       # Scrapes product details and reviews from Jumia
 │
+├── .dockerignore                           # Files and folders excluded from the Docker build context
 ├── .gitignore                              # Files and folders excluded from version control
 ├── .python-version                         # Pinned Python version managed by uv
 ├── Dockerfile                              # Container configuration for production deployment
 ├── LICENSE                                 # MIT License
-├── pyproject.toml                          # Project metadata and dependencies
 ├── README.md                               # Project documentation
+├── pyproject.toml                          # Project metadata and dependencies
 └── uv.lock                                 # Dependency lockfile
 ```
 
