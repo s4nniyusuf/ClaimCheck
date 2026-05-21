@@ -3,6 +3,7 @@ import time
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
+from fake_useragent import UserAgent
 
 HEADLESS = True
 
@@ -10,14 +11,20 @@ def set_up_browser(playwright):
     """Launch Chromium and return (browser, context, page)."""
     browser = playwright.chromium.launch(
         headless=HEADLESS,
+        args=[
+            "--no-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-blink-features=AutomationControlled"
+        ]
         # Removed executable_path. Playwright finds chromium automatically
         # executable_path="/usr/bin/chromium"
         )
     context = browser.new_context(
         user_agent=(
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/120.0.0.0 Safari/537.36"
+            # "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            # "AppleWebKit/537.36 (KHTML, like Gecko) "
+            # "Chrome/120.0.0.0 Safari/537.36"
+            UserAgent.random()
         )
     )
     page = context.new_page()
@@ -92,8 +99,29 @@ def scrape_data(page, soup):
         reviews_url = f"https://www.jumia.com.ng{see_all['href']}"
         print(f"Navigating to all reviews: {reviews_url}")
 
-        page.goto(reviews_url, wait_until="domcontentloaded", timeout=30000)
-        page.wait_for_selector("div.cola", timeout=30000)
+        # Degugging 
+        try:
+            page.goto(reviews_url, wait_until="networkidle")
+
+            print("TITLE:", page.title())
+            print("URL:", page.url)
+
+            html = page.content()
+            print(html[:3000])   # first part only
+
+            page.screenshot(path="/tmp/debug.png")
+
+            page.wait_for_selector("div.cola", timeout=60000)
+
+        except Exception as e:
+            print("ERROR:", e)
+            print("TITLE:", page.title())
+            print("URL:", page.url)
+            print(page.content()[:3000])
+            page.screenshot(path="/tmp/fail.png")
+            raise
+
+        page.wait_for_selector("div.cola", timeout=60000)
         reviews_soup = BeautifulSoup(page.content(), "lxml")
         reviews = parse_reviews(soup=reviews_soup)
         
