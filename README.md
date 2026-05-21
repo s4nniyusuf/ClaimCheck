@@ -2,7 +2,7 @@
 
 > Does this seller deliver what they promise?
 
-ClaimCheck compares what sellers claim in their product descriptions against what customers actually experience in their reviews, so you can verify your next purchase before placing an order.
+ClaimCheck compares what sellers claim in their product descriptions against what customers actually experience in their reviews, to help buyers verify their next purchase before placing an order.
 
 Beyond helping buyers decide, ClaimCheck pushes sellers toward transparency and accountability.
 
