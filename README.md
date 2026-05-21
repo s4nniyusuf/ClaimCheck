@@ -174,4 +174,4 @@ If you find ClaimCheck useful, consider giving it a star ⭐. It helps more peop
 
 ## License
 
-MIT
+MIT - See [LICENSE](./LICENSE)
