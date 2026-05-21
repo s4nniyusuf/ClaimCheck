@@ -109,7 +109,7 @@ def scrape_data(page, soup):
             html = page.content()
             print(html[:3000])   # first part only
 
-            page.screenshot(path="/tmp/debug.png")
+            page.screenshot(path="debug.png")
 
             page.wait_for_selector("div.cola", timeout=60000)
 
