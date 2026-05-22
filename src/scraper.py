@@ -14,7 +14,8 @@ def set_up_browser(playwright):
         args=[
             "--no-sandbox",
             "--disable-dev-shm-usage",
-            "--disable-blink-features=AutomationControlled"
+            "--disable-blink-features=AutomationControlled",
+            "--disable-gpu"
         ]
         # Removed executable_path. Playwright finds chromium automatically
         # executable_path="/usr/bin/chromium"
@@ -100,7 +101,7 @@ def scrape_data(page, soup):
 
         # Degugging 
         try:
-            page.goto(reviews_url, wait_until="networkidle")
+            page.goto(reviews_url, wait_until="domcontentloaded", timeout=60000)
 
             print("TITLE:", page.title())
             print("URL:", page.url)
@@ -108,7 +109,7 @@ def scrape_data(page, soup):
             html = page.content()
             print(html[:3000])   # first part only
 
-            page.screenshot(path="debug.png")
+            page.screenshot(path="/tmp/debug.png")
 
             page.wait_for_selector("div.cola", timeout=60000)
 
@@ -120,7 +121,6 @@ def scrape_data(page, soup):
             page.screenshot(path="/tmp/fail.png")
             raise
 
-        page.wait_for_selector("div.cola", timeout=60000)
         reviews_soup = BeautifulSoup(page.content(), "lxml")
         reviews = parse_reviews(soup=reviews_soup)
         
