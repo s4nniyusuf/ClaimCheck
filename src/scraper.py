@@ -3,7 +3,6 @@ import time
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
-from fake_useragent import UserAgent
 
 HEADLESS = True
 
@@ -99,25 +98,12 @@ def scrape_data(page, soup):
         reviews_url = f"https://www.jumia.com.ng{see_all['href']}"
         print(f"Navigating to all reviews: {reviews_url}")
 
-        # Degugging 
         try:
-            page.goto(reviews_url, wait_until="domcontentloaded", timeout=60000)
-
-            print("TITLE:", page.title())
-            print("URL:", page.url)
-
-            html = page.content()
-            print(html[:3000])   # first part only
-
+            page.goto(reviews_url, wait_until="domcontentloaded", timeout=15000)
             page.screenshot(path="/tmp/debug.png")
-
-            page.wait_for_selector("div.cola", timeout=60000)
-
+            page.wait_for_selector("div.cola", timeout=15000)
         except Exception as e:
             print("ERROR:", e)
-            print("TITLE:", page.title())
-            print("URL:", page.url)
-            print(page.content()[:3000])
             page.screenshot(path="/tmp/fail.png")
             raise
 
@@ -135,13 +121,13 @@ def scrape_data(page, soup):
 def go_to_product_page(page, product_url: str):
     """ Access the product page and returns page soup object """
     try:
-        page.goto(product_url, timeout=30000, wait_until="domcontentloaded")
+        page.goto(product_url, timeout=15000, wait_until="domcontentloaded")
         time.sleep(2)  # Wait to simulate human behaviour
         print("Page loaded successfully. ")
-        # page.get_by_role("button", name="Accept All Cookies").click()
-        # print("Cookies accepted")
+        page.get_by_role("button", name="Accept All Cookies").click()
+        print("Cookies accepted")
         time.sleep(2)
-        page.wait_for_selector("div.row ", timeout=30000)
+        page.wait_for_selector("div.row ", timeout=15000)
         print("Page loaded successfully. Starting scrape")
 
         html = page.content()
