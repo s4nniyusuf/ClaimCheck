@@ -234,6 +234,18 @@ else:
         on_click=lambda: st.session_state.update(show_report=False, report_data=None)
     )
 
+    import re as _re
+    raw_rating = product.get("rating")
+    rating_html = ""
+    if raw_rating and raw_rating != "N/A":
+        try:
+            match = _re.search(r"[\d]+\.?[\d]*", str(raw_rating))
+            if match:
+                rating_val = float(match.group())
+                rating_html = f'<span style="font-size:13px; font-weight:700; color:#ffb830; margin-left:10px; vertical-align:middle; padding:2px 10px; border:1px solid #ffb830; border-radius:4px; background:rgba(255,184,48,0.07);">{rating_val:.1f} / 5</span>'
+        except (ValueError, TypeError):
+            pass
+
     st.html(f"""
     <div style="margin-bottom:24px;">
         <span style="font-size:11px; letter-spacing:.15em;
@@ -243,7 +255,9 @@ else:
                    line-height:1.2; margin-top:10px;">
             Does this seller deliver what they promise?
         </h1>
-        <p style="color:#888; font-size:14px; margin-top:4px;">{product['product_name']}</p>
+        <p style="color:#888; font-size:14px; margin-top:4px;">
+            {product['product_name']}{rating_html}
+        </p>
     </div>
     """)
 
