@@ -153,7 +153,7 @@ def scrape_jumia_product(product_url: str):
                 product_info = structure_data(product_data=product_data)
                 # print(f"Product Name: {product_info["product_name"]}")
                 # print(f"Product Description: {product_info["description"]}")
-                print(f"Rating: {product_info["rating"]}")
+                # print(f"Rating: {product_info["rating"]}")
                 # print("Reviews")
                 # print(f"------- {product_info["reviews"]}")
                 return product_info
