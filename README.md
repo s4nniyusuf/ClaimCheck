@@ -162,7 +162,7 @@ uv run streamlit run src/app.py
 ![ClaimCheck Report](assets/report_img4.png)
 ![ClaimCheck Report](assets/report_img5.png)
 
-[Demo Video](https://youtu.be/zqgYGe2-3j8?feature=shared)
+Demo Video on [Youtube](https://youtu.be/zqgYGe2-3j8?feature=shared)
 
 ---
 
