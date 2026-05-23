@@ -124,8 +124,8 @@ def go_to_product_page(page, product_url: str):
         page.goto(product_url, timeout=15000, wait_until="domcontentloaded")
         time.sleep(2)  # Wait to simulate human behaviour
         print("Page loaded successfully. ")
-        page.get_by_role("button", name="Accept All Cookies").click()
-        print("Cookies accepted")
+        # page.get_by_role("button", name="Accept All Cookies").click()
+        # print("Cookies accepted")
         time.sleep(2)
         page.wait_for_selector("div.row ", timeout=15000)
         print("Page loaded successfully. Starting scrape")
@@ -153,7 +153,7 @@ def scrape_jumia_product(product_url: str):
                 product_info = structure_data(product_data=product_data)
                 # print(f"Product Name: {product_info["product_name"]}")
                 # print(f"Product Description: {product_info["description"]}")
-                # print(f"Rating: {product_info["rating"]}")
+                print(f"Rating: {product_info["rating"]}")
                 # print("Reviews")
                 # print(f"------- {product_info["reviews"]}")
                 return product_info
