@@ -250,7 +250,7 @@ else:
     <div style="margin-bottom:24px;">
         <span style="font-size:11px; letter-spacing:.15em;
                padding:4px 10px; border:1px solid #70d6f5;
-               border-radius:4px; background:#ffff; color:#05c8eb;">CLAIM CHECK</span>
+               border-radius:4px; background:#ffff; color:#05c8eb;">ClaimCheck</span>
         <h1 style="font-weight:700; font-size:28px; color:#444;
                    line-height:1.2; margin-top:10px;">
             Does this seller deliver what they promise?
