@@ -156,7 +156,11 @@ uv run streamlit run src/app.py
 
 ## Demo
 
-![ClaimCheck Report](assets/report.png)
+![ClaimCheck Report](assets/report_img1.png)
+![ClaimCheck Report](assets/report_img2.png)
+![ClaimCheck Report](assets/report_img3.png)
+![ClaimCheck Report](assets/report_img4.png)
+![ClaimCheck Report](assets/report_img5.png)
 
 [Try it live → claimcheck.streamlit.app](https://claimcheck.streamlit.app)
 
