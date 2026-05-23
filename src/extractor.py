@@ -53,7 +53,8 @@ def fix_description_grammar(description: str) -> str:
         content = grammar_fix_prompt.replace("{description}", description)
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
-            messages=[{"role": "user", "content": content}]
+            messages=[{"role": "user", "content": content}],
+            temperature=0.1
         )
         return response.choices[0].message.content
 
@@ -69,6 +70,7 @@ def extract_sellers_claim_from_description(description: str) -> list[dict]:
         chat_completion = client.chat.completions.create(
             messages=[{"role": "user", "content": content}],
             model="llama-3.3-70b-versatile",
+            temperature=0.1
         )
         raw = chat_completion.choices[0].message.content.strip()
         raw = re.sub(r"^```(?:json)?\s*|\s*```$", "", raw, flags=re.DOTALL).strip()
@@ -97,7 +99,8 @@ def extract_aspect_and_sentiment_from_review(review_text: str) -> dict:
         content = review_analysis_prompt.replace("{review_text}", review_text)
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
-            messages=[{"role": "user", "content": content}]
+            messages=[{"role": "user", "content": content}],
+            temperature=0.1
         )
         raw = response.choices[0].message.content.strip()
         raw = re.sub(r"^```(?:json)?\s*|\s*```$", "", raw, flags=re.DOTALL).strip()
