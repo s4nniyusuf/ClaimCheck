@@ -24,7 +24,7 @@ def _get_api_key(name: str) -> str:
     return key
 
 client = Groq(api_key=_get_api_key("GROQ_API_KEY"))
-LLM_MODEL = "llama-3.3-70b-versatile"
+LLM_MODEL = "qwen/qwen3.8-27b"
 
 
 def _call_llm(prompt: str, temperature: float = 0.1) -> str:
