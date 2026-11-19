@@ -17,13 +17,13 @@ nlp = spacy.load("en_core_web_sm")
 
 load_dotenv(override=False)
 
-def _get_key(name: str) -> str:
+def _get_api_key(name: str) -> str:
     key = os.getenv(name)
     if not key:
         raise ValueError(f"{name} is not set. Provide it as an environment variable.")
     return key
 
-client = Groq(api_key=_get_key("GROQ_API_KEY"))
+client = Groq(api_key=_get_api_key("GROQ_API_KEY"))
 LLM_MODEL = "llama-3.3-70b-versatile"
 
 
