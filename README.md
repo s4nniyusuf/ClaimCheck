@@ -166,6 +166,14 @@ Demo Video on [Youtube](https://youtu.be/zqgYGe2-3j8?feature=shared)
 
 ---
 
+## Deployment lessons
+
+I deployed ClaimCheck to [Azure](https://claimcheck.agreeablebush-42cbd659.southafricanorth.azurecontainerapps.io/) and [Render](https://claimcheck-eo6l.onrender.com/). In production, Playwright made the app resource-heavy, and Jumia's anti-bot protections made scraping unreliable.
+
+This experience taught me to account for hosting limits and anti-bot protections when building web scrapers.
+
+---
+
 ## Feedback
 
 Especially from anyone who's been humbled by a bad Jumia order.
