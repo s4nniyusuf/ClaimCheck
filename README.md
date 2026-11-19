@@ -120,7 +120,7 @@ claim_check/
 
 **1. Clone the repo**
 ```bash
-git clone https://github.com/s4nni_yusuf/claimcheck.git
+git clone https://github.com/s4nniyusuf/claimcheck.git
 cd claimcheck
 ```
 
