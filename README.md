@@ -170,7 +170,7 @@ Demo Video on [Youtube](https://youtu.be/zqgYGe2-3j8?feature=shared)
 
 Especially from anyone who's been humbled by a bad Jumia order.
 
-Open an issue, submit a PR, or reach out on X [@s4nni_yusuf](https://x.com/s4nni_yusuf).
+Open an issue, submit a PR, or reach out on X [@s4nni_yusuf](https://x.com/s4nniyusuf).
 
 If you find ClaimCheck useful, consider giving it a star ⭐. It helps more people find the project.
 
