@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 
 from prompts.grammar_fix_prompt import grammar_fix_prompt
 from prompts.extract_sellers_claim_prompt import extract_seller_claims_prompt
-from prompts.review_analysis_prompt import review_analysis_prompt
+from prompts.review_analysis_prompt import review_analysis_promptw
 
 nlp = spacy.load("en_core_web_sm")
 
@@ -24,6 +24,17 @@ def _get_key(name: str) -> str:
     return key
 
 client = Groq(api_key=_get_key("GROQ_API_KEY"))
+LLM_MODEL = "llama-3.3-70b-versatile"
+
+
+def _call_llm(prompt: str, temperature: float = 0.1) -> str:
+    """Send a prompt to the configured model and return its text response."""
+    response = client.chat.completions.create(
+        model=LLM_MODEL,
+        messages=[{"role": "user", "content": prompt}],
+        temperature=temperature,
+    )
+    return response.choices[0].message.content or ""
 
 
 def preprocess_description(text: str) -> str:
@@ -51,12 +62,7 @@ def fix_description_grammar(description: str) -> str:
     """Fix grammar, punctuation, and run-on sentences without changing any claims."""
     try:
         content = grammar_fix_prompt.replace("{description}", description)
-        response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=[{"role": "user", "content": content}],
-            temperature=0.1
-        )
-        return response.choices[0].message.content
+        return _call_llm(content)
 
     except Exception as e:
         print("Error fixing grammar:", e)
@@ -67,12 +73,7 @@ def extract_sellers_claim_from_description(description: str) -> list[dict]:
     """Extracts seller claims from the cleaned description and returns them as a list of dicts."""
     try:
         content = extract_seller_claims_prompt.replace("{description}", description)
-        chat_completion = client.chat.completions.create(
-            messages=[{"role": "user", "content": content}],
-            model="llama-3.3-70b-versatile",
-            temperature=0.1
-        )
-        raw = chat_completion.choices[0].message.content.strip()
+        raw = _call_llm(content).strip()
         raw = re.sub(r"^```(?:json)?\s*|\s*```$", "", raw, flags=re.DOTALL).strip()
         return json.loads(raw)
 
@@ -97,12 +98,7 @@ def extract_aspect_and_sentiment_from_review(review_text: str) -> dict:
     """Extracts aspects and their sentiment from a review and returns them as a dict."""
     try:
         content = review_analysis_prompt.replace("{review_text}", review_text)
-        response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=[{"role": "user", "content": content}],
-            temperature=0.1
-        )
-        raw = response.choices[0].message.content.strip()
+        raw = _call_llm(content).strip()
         raw = re.sub(r"^```(?:json)?\s*|\s*```$", "", raw, flags=re.DOTALL).strip()
         return json.loads(raw)
 
