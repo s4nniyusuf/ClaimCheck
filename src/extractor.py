@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 
 from prompts.grammar_fix_prompt import grammar_fix_prompt
 from prompts.extract_sellers_claim_prompt import extract_seller_claims_prompt
-from prompts.review_analysis_prompt import review_analysis_promptw
+from prompts.review_analysis_prompt import review_analysis_prompt
 
 nlp = spacy.load("en_core_web_sm")
 
