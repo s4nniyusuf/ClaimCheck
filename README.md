@@ -79,7 +79,7 @@ A single negative review can't contradict a seller claim. ClaimCheck requires a 
 |---|---|
 | Scraping | Playwright + BeautifulSoup |
 | NLP preprocessing | spaCy |
-| LLM inference | Groq (`llama-3.3-70b-versatile`) |
+| LLM inference | Groq (`qwen/qwen3.8-27b`) |
 | Frontend | Streamlit |
 | Language | Python 3.11+ |
 
